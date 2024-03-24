@@ -1,14 +1,35 @@
 # Configurações de aplicação
 spring:
+  # Ativo apenas no perfil local
   on-profiles: local
   application:
+    # Nome da aplicação
     name: api-orch-realtime-sensor
+  cloud:
+    gcp:
+      # ID do projeto Google Cloud
+      project-id: kley-3141c
+      pubsub:
+        # Configurações do Pub/Sub
+        health:
+          # Timeout da verificação de integridade
+          timeout-millis: 60000
 
 # Configurações do servidor
 server:
+  # Porta do servidor
   port: 8081
 
-springdoc:
-  swagger-ui:
-    path: /swagger-ui-custom.html
-    operationsSorter: method
+# Configurações GCP (Global)
+gcp:
+  pubsub:
+    subscriptions:
+      # Nome da assinatura e nome completo
+      mosquittoSensorInputChannel: projects/kley-3141c/subscriptions/pubsub-mosquitto-sensor-sub
+
+# Configurações da API (Global)
+api:
+  atom:
+    realtime:
+      # URL do sensor atom
+      atom-sensor-url: localhost:8080/
