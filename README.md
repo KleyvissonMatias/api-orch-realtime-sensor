@@ -1,4 +1,4 @@
-# api-orch-realtime-sensor (Orquestrador) - Processamento em Tempo Real de Sensor IoT
+# api-orch-realtime-sensor (Orquestrador) - Processamento em Tempo Real Sensor IoT ESP8266 
 
 É um orquestrador desenvolvido para processamento em tempo real de dados provenientes de sensores IoT. Utiliza uma arquitetura orientada a eventos e integra tecnologias como Spring Boot 3, Maven+ e Cloud Pub/Sub para garantir escalabilidade, confiabilidade e eficiência no processamento de dados.
 
