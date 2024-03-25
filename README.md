@@ -76,7 +76,3 @@
    ```
    java -jar target/aplicacao-orch-1.0.0.jar
    ```
-
----
-
-Este é um modelo básico de `README.md` para a sua aplicação Orch. Certifique-se de personalizá-lo conforme as necessidades específicas do seu projeto, incluindo informações adicionais sobre a integração com o Cloud Pub/Sub, detalhes sobre o sistema de Retry utilizando Redis ou Cloud Memorystore, guias de contribuição, etc.
