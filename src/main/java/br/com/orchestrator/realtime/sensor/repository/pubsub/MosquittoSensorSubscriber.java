@@ -19,12 +19,12 @@ public class MosquittoSensorSubscriber {
             @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) BasicAcknowledgeablePubsubMessage message) {
 
         if (payload == null || payload.isEmpty()) {
-            log.error("Mensagem recebida com payload nulo ou vazio. Mensagem não processada. Original message: " + message);
+            log.error("Mensagem recebida com payload nulo ou vazio. Mensagem não processada. message: " + message);
             message.nack();
             return;
         }
 
-        log.info("Mensagem recebida através de um adaptador de canal de entrada MOSQUITTO_SENSOR Payload: " + payload);
+        log.info("Mensagem recebida mosquitto_sensor_topic - Payload: " + payload);
         message.ack();
     }
 }
