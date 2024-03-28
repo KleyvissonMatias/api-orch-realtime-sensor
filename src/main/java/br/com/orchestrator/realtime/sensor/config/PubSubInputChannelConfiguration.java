@@ -1,6 +1,6 @@
 package br.com.orchestrator.realtime.sensor.config;
 
-import br.com.orchestrator.realtime.sensor.domain.SensorEventDTO;
+import br.com.orchestrator.realtime.sensor.domain.SensorTempEventDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,15 +63,15 @@ public class PubSubInputChannelConfiguration {
 
         Assert.notNull(
                 subscription,
-                String.format("Subscription '%s' não mapeada. Validar configuração das properties",
+                String.format("Subscription ['%s'] não mapeada. Validar configuração das properties",
                         MOSQUITTO_SENSOR_INPUT_CHANNEL)
         );
 
-        PubSubInputChannelConfiguration.log.info("InputChannel => '{}'", MOSQUITTO_SENSOR_INPUT_CHANNEL);
+        PubSubInputChannelConfiguration.log.info("[INPUTCHANNEL] => ['{}']", MOSQUITTO_SENSOR_INPUT_CHANNEL);
         PubSubMessageSource messageSource =
                 new PubSubMessageSource(pubSubTemplate, subscription);
         messageSource.setAckMode(AckMode.MANUAL);
-        messageSource.setPayloadType(SensorEventDTO.class);
+        messageSource.setPayloadType(SensorTempEventDTO.class);
         return messageSource;
     }
 }
