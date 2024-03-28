@@ -2,6 +2,7 @@ package br.com.orchestrator.realtime.sensor.repository.pubsub;
 
 import br.com.orchestrator.realtime.sensor.config.PubSubInputChannelConfiguration;
 import br.com.orchestrator.realtime.sensor.domain.SensorTempEventDTO;
+import br.com.orchestrator.realtime.sensor.service.IMosquittoSensorSevice;
 import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage;
 import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import java.util.Objects;
 @Slf4j
 public class MosquittoSensorSubscriber {
 
+    private final IMosquittoSensorSevice sensorSevice;
+
     @ServiceActivator(inputChannel = PubSubInputChannelConfiguration.MOSQUITTO_SENSOR_INPUT_CHANNEL, autoStartup = "true")
     public void messageReceiverMosquittoSensor(
             SensorTempEventDTO sensorTempEventDTO,
@@ -29,8 +32,8 @@ public class MosquittoSensorSubscriber {
 
         log.info("[INICIO] => [messageReceiverMosquittoSensor] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
                 sensorTempEventDTO);
+        sensorSevice.enviarDadosSensorParaAtomico(sensorTempEventDTO);
         message.ack();
-        log.info("[RECEBIDO] => [messageReceiverMosquittoSensor] - [TOPIC] mosquitto_sensor_topic - [{}]", sensorTempEventDTO);
     }
 
     private boolean isNullOrInvalid(SensorTempEventDTO sensorTempEventDTO) {

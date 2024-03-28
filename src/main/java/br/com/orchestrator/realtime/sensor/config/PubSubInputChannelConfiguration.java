@@ -59,15 +59,15 @@ public class PubSubInputChannelConfiguration {
     @Bean
     @InboundChannelAdapter(channel = MOSQUITTO_SENSOR_INPUT_CHANNEL, poller = @Poller(fixedDelay = "100"))
     public MessageSource<Object> mosquittoSensorChannelAdapter(PubSubTemplate pubSubTemplate) {
-        String subscription = this.pubSubProperties.getSubscriptions().get(MOSQUITTO_SENSOR_INPUT_CHANNEL);
+        String subscription = pubSubProperties.getSubscriptions().get(MOSQUITTO_SENSOR_INPUT_CHANNEL);
 
         Assert.notNull(
                 subscription,
-                String.format("Subscription ['%s'] não mapeada. Validar configuração das properties",
+                String.format("[SUBSCRIPTION] ['%s'] não mapeada. Validar configuração das properties",
                         MOSQUITTO_SENSOR_INPUT_CHANNEL)
         );
 
-        PubSubInputChannelConfiguration.log.info("[INPUTCHANNEL] => ['{}']", MOSQUITTO_SENSOR_INPUT_CHANNEL);
+        PubSubInputChannelConfiguration.log.info("[INPUT CHANNEL] => [{}]", MOSQUITTO_SENSOR_INPUT_CHANNEL);
         PubSubMessageSource messageSource =
                 new PubSubMessageSource(pubSubTemplate, subscription);
         messageSource.setAckMode(AckMode.MANUAL);
