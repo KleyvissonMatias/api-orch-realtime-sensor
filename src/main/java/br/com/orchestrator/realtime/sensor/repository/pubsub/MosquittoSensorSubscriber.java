@@ -30,9 +30,9 @@ public class MosquittoSensorSubscriber {
             return;
         }
 
-        log.info("[INICIO] => [messageReceiverMosquittoSensor] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
+        log.info("[BEGIN] => [messageReceiverMosquittoSensor] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
                 sensorTempEventDTO);
-        sensorSevice.enviarDadosSensorParaAtomico(sensorTempEventDTO);
+        sensorSevice.sendTemperatureSensorDataToAtomic(sensorTempEventDTO);
         message.ack();
     }
 
@@ -41,7 +41,7 @@ public class MosquittoSensorSubscriber {
     }
 
     private void handleInvalidMessage(BasicAcknowledgeablePubsubMessage message) {
-        log.warn("[FALHA] => payload nulo ou invalido. Mensagem não processada. message: [{}]", message);
+        log.warn("[FAIL] => payload nulo ou invalido. Mensagem não processada. message: [{}]", message);
         message.nack();
     }
 }

@@ -15,8 +15,8 @@ public class MosquittoSensorService implements IMosquittoSensorSevice {
     IMosquittoSensorRepository sensorRepository;
 
     @Override
-    public void enviarDadosSensorParaAtomico(SensorTempEventDTO sensorTempEventDTO) {
-        log.info("[ENVIAR] => [enviarDadosSensorParaAtomico] Payload: [{}]", sensorTempEventDTO);
-        sensorRepository.enviarDadosSensorTemperaturaParaAtomico(sensorTempEventDTO);
+    public void sendTemperatureSensorDataToAtomic(SensorTempEventDTO sensorTempEventDTO) {
+        log.info("[SEND] => [enviarDadosSensorParaAtomico] Payload: [{}]", sensorTempEventDTO);
+        sensorRepository.sendTemperatureSensorDataToAtomic(sensorTempEventDTO);
     }
 }

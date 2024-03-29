@@ -7,8 +7,6 @@ import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -22,9 +20,12 @@ public class MosquittoSensorRepositoryImpl implements IMosquittoSensorRepository
 
     private final RestTemplate restTemplate;
 
+    public static final String ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM = "enviarDadosSensorTemperaturaParaAtomico";
+    public static final String FALLBACK_ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM = "fallbackEnviarDadosSensorTemperaturaParaAtomico";
+
     @Override
-    @Retry(name = "enviarDadosSensorTemperaturaParaAtomico", fallbackMethod = "fallbackEnviarDadosSensorTemperaturaParaAtomico")
-    public void enviarDadosSensorTemperaturaParaAtomico(SensorTempEventDTO eventDTO) {
+    @Retry(name = ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM, fallbackMethod = FALLBACK_ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM)
+    public void sendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -39,19 +40,19 @@ public class MosquittoSensorRepositoryImpl implements IMosquittoSensorRepository
             );
             HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (statusCode == HttpStatus.OK) {
-                log.info("[ENVIADO] => [enviarDadosSensorTemperaturaParaAtomico] - Status code: {} - Payload: [{}]"
+                log.info("[SENT] => [enviarDadosSensorTemperaturaParaAtomico] - Status code: [{}] - Payload: [{}]"
                         , statusCode, eventDTO);
             } else {
-                log.error("[ERRO] => [enviarDadosSensorTemperaturaParaAtomico] - Status code: {}", statusCode);
+                log.error("[ERROR] => [enviarDadosSensorTemperaturaParaAtomico] - Status code: [{}]", statusCode);
             }
         } catch (HttpClientErrorException e) {
-            log.error("[ERRO] => [enviarDadosSensorTemperaturaParaAtomico] - [{}]", e.getMessage());
+            log.error("[ERROR] => [enviarDadosSensorTemperaturaParaAtomico] - [{}]", e.getMessage());
         }
     }
 
     @Override
-    public void fallbackEnviarDadosSensorTemperaturaParaAtomico(SensorTempEventDTO eventDTO, Exception e) {
-        log.warn("[FALLBACK] => [enviarDadosSensorTemperaturaParaAtomico] - [{}] - {}", eventDTO, e);
+    public void fallbackSendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO, Exception e) {
+        log.warn("[FALLBACK] => [enviarDadosSensorTemperaturaParaAtomico] - Payload: [{}] - Exception: {}", eventDTO, e);
     }
 }
 

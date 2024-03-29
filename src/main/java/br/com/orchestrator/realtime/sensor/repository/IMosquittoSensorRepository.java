@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IMosquittoSensorRepository {
-    void enviarDadosSensorTemperaturaParaAtomico(SensorTempEventDTO eventDTO);
-    void fallbackEnviarDadosSensorTemperaturaParaAtomico(SensorTempEventDTO eventDTO, Exception e);
+    void sendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO);
+    void fallbackSendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO, Exception e);
 }
