@@ -16,12 +16,12 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class MosquittoSensorSubscriber {
+public class MosquittoTemperatureSensorSubscriber {
 
     private final IMosquittoSensorSevice sensorSevice;
 
     @ServiceActivator(inputChannel = PubSubInputChannelConfiguration.MOSQUITTO_SENSOR_INPUT_CHANNEL, autoStartup = "true")
-    public void messageReceiverMosquittoSensor(
+    public void messageReceiverMosquittoSensorTemperature(
             SensorTempEventDTO sensorTempEventDTO,
             @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) BasicAcknowledgeablePubsubMessage message) {
 
@@ -30,10 +30,12 @@ public class MosquittoSensorSubscriber {
             return;
         }
 
-        log.info("[BEGIN] => [messageReceiverMosquittoSensor] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
+        log.info("[BEGIN] => [messageReceiverMosquittoSensorTemperature] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
                 sensorTempEventDTO);
-        sensorSevice.sendTemperatureSensorDataToAtomic(sensorTempEventDTO);
+        //sensorSevice.sendTemperatureSensorDataToAtomic(sensorTempEventDTO);
         message.ack();
+        log.info("[SIGNED] => [messageReceiverMosquittoSensorTemperature] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
+                sensorTempEventDTO);
     }
 
     private boolean isNullOrInvalid(SensorTempEventDTO sensorTempEventDTO) {

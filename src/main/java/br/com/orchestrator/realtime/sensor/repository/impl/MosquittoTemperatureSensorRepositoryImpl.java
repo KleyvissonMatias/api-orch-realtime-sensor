@@ -2,7 +2,7 @@ package br.com.orchestrator.realtime.sensor.repository.impl;
 
 import br.com.orchestrator.realtime.sensor.config.AppProperties;
 import br.com.orchestrator.realtime.sensor.domain.SensorTempEventDTO;
-import br.com.orchestrator.realtime.sensor.repository.IMosquittoSensorRepository;
+import br.com.orchestrator.realtime.sensor.repository.IMosquittoTemperatureSensorRepository;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,17 +14,17 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MosquittoSensorRepositoryImpl implements IMosquittoSensorRepository {
+public class MosquittoTemperatureSensorRepositoryImpl implements IMosquittoTemperatureSensorRepository {
 
     private final AppProperties appProperties;
 
     private final RestTemplate restTemplate;
 
-    public static final String ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM = "enviarDadosSensorTemperaturaParaAtomico";
-    public static final String FALLBACK_ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM = "fallbackEnviarDadosSensorTemperaturaParaAtomico";
+    public static final String SEND_SENSOR_TEMPERATURE_DATA_ATOM = "sendTemperatureSensorDataToAtomic";
+    public static final String FALLBACK_SEND_SENSOR_TEMPERATURE_DATA_ATOM  = "fallbackSendTemperatureSensorDataToAtomic";
 
     @Override
-    @Retry(name = ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM, fallbackMethod = FALLBACK_ENVIAR_DADOS_SENSOR_TEMPERATURA_ATOM)
+    @Retry(name = SEND_SENSOR_TEMPERATURE_DATA_ATOM, fallbackMethod = FALLBACK_SEND_SENSOR_TEMPERATURE_DATA_ATOM)
     public void sendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -58,7 +58,7 @@ public class PubSubInputChannelConfiguration {
 
     @Bean
     @InboundChannelAdapter(channel = MOSQUITTO_SENSOR_INPUT_CHANNEL, poller = @Poller(fixedDelay = "100"))
-    public MessageSource<Object> mosquittoSensorChannelAdapter(PubSubTemplate pubSubTemplate) {
+    public MessageSource<Object> mosquittoTemperatureSensorChannelAdapter(PubSubTemplate pubSubTemplate) {
         String subscription = pubSubProperties.getSubscriptions().get(MOSQUITTO_SENSOR_INPUT_CHANNEL);
 
         Assert.notNull(
