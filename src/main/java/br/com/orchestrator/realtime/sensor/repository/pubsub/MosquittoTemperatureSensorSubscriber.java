@@ -30,11 +30,11 @@ public class MosquittoTemperatureSensorSubscriber {
             return;
         }
 
-        log.info("[BEGIN] => [messageReceiverMosquittoSensorTemperature] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
+        log.info("[BEGIN] => [messageReceiverMosquittoSensorTemperature] - [TOPIC] [mosquitto_sensor_topic] - Payload: [{}]",
                 sensorTempEventDTO);
         sensorSevice.sendTemperatureSensorDataToAtomic(sensorTempEventDTO);
         message.ack();
-        log.info("[SIGNED] => [messageReceiverMosquittoSensorTemperature] - [TOPIC] mosquitto_sensor_topic - Payload: [{}]",
+        log.info("[SIGNED] => [messageReceiverMosquittoSensorTemperature] - [TOPIC] [mosquitto_sensor_topic]- Payload: [{}]",
                 sensorTempEventDTO);
     }
 

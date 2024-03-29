@@ -46,13 +46,13 @@ public class MosquittoTemperatureSensorRepositoryImpl implements IMosquittoTempe
                 log.warn("[FAIL] => [sendTemperatureSensorDataToAtomic] - Status code: [{}]", statusCode);
             }
         } catch (HttpClientErrorException e) {
-            log.error("[ERROR] => [sendTemperatureSensorDataToAtomic] - [{}]", e.getMessage());
+            log.error("[ERROR] => [sendTemperatureSensorDataToAtomic] - Exception: [{}]", e.getMessage());
         }
     }
 
     @Override
     public void fallbackSendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO, Exception e) {
-        log.warn("[FALLBACK] => [fallbackSendTemperatureSensorDataToAtomic] - Payload: [{}] - Exception: {}", eventDTO, e);
+        log.warn("[FALLBACK] => [fallbackSendTemperatureSensorDataToAtomic] - Payload: [{}] - Exception: [{}]", eventDTO, e);
     }
 }
 
