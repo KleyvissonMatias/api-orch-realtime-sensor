@@ -40,19 +40,19 @@ public class MosquittoTemperatureSensorRepositoryImpl implements IMosquittoTempe
             );
             HttpStatusCode statusCode = responseEntity.getStatusCode();
             if (statusCode == HttpStatus.OK) {
-                log.info("[SENT] => [enviarDadosSensorTemperaturaParaAtomico] - Status code: [{}] - Payload: [{}]"
+                log.info("[SENT] => [sendTemperatureSensorDataToAtomic] - Status code: [{}] - Payload: [{}]"
                         , statusCode, eventDTO);
             } else {
-                log.error("[ERROR] => [enviarDadosSensorTemperaturaParaAtomico] - Status code: [{}]", statusCode);
+                log.error("[ERROR] => [sendTemperatureSensorDataToAtomic] - Status code: [{}]", statusCode);
             }
         } catch (HttpClientErrorException e) {
-            log.error("[ERROR] => [enviarDadosSensorTemperaturaParaAtomico] - [{}]", e.getMessage());
+            log.error("[ERROR] => [sendTemperatureSensorDataToAtomic] - [{}]", e.getMessage());
         }
     }
 
     @Override
     public void fallbackSendTemperatureSensorDataToAtomic(SensorTempEventDTO eventDTO, Exception e) {
-        log.warn("[FALLBACK] => [enviarDadosSensorTemperaturaParaAtomico] - Payload: [{}] - Exception: {}", eventDTO, e);
+        log.warn("[FALLBACK] => [fallbackSendTemperatureSensorDataToAtomic] - Payload: [{}] - Exception: {}", eventDTO, e);
     }
 }
 
