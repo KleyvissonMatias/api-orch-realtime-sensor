@@ -43,7 +43,7 @@ public class MosquittoTemperatureSensorRepositoryImpl implements IMosquittoTempe
                 log.info("[SENT] => [sendTemperatureSensorDataToAtomic] - Status code: [{}] - Payload: [{}]"
                         , statusCode, eventDTO);
             } else {
-                log.error("[ERROR] => [sendTemperatureSensorDataToAtomic] - Status code: [{}]", statusCode);
+                log.warn("[FAIL] => [sendTemperatureSensorDataToAtomic] - Status code: [{}]", statusCode);
             }
         } catch (HttpClientErrorException e) {
             log.error("[ERROR] => [sendTemperatureSensorDataToAtomic] - [{}]", e.getMessage());
